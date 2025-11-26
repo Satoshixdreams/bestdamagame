@@ -1,6 +1,6 @@
 import { UserProfile } from "../types";
 
-const STORAGE_KEY_PREFIX = 'turkish_dama_profile_';
+const STORAGE_KEY_PREFIX = 'checkers_profile_';
 const DEFAULT_KEY = 'guest';
 
 const INITIAL_PROFILE: UserProfile = {

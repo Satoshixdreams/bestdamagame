@@ -43,7 +43,7 @@ const App: React.FC = () => {
   const [advice, setAdvice] = useState<string>("");
   const [isLoadingAdvice, setIsLoadingAdvice] = useState(false);
   const [hintMove, setHintMove] = useState<Move | null>(null);
-  const [boardTheme, setBoardTheme] = useState<'classic' | 'neon' | 'turkish'>('turkish');
+  const [boardTheme, setBoardTheme] = useState<'classic' | 'neon' | 'checkers'>('checkers');
 
   // Online State
   const [myPeerId, setMyPeerId] = useState<string | null>(null);
@@ -460,7 +460,7 @@ const App: React.FC = () => {
     const url = new URL(window.location.href);
     url.searchParams.set('join', myPeerId);
     const shareUrl = url.toString();
-    const shareText = gameMode === GameMode.ONLINE ? "Playing now: Turkish Dama 🟢 vs ⚪️ — join me!" : "Training Turkish Dama — come watch or play!";
+    const shareText = gameMode === GameMode.ONLINE ? "Playing now: Checkers 🟢 vs ⚪️ — join me!" : "Training Checkers — come watch or play!";
     setShareBtnLabel("Opening...");
     const composeUrl = `https://warpcast.com/~/compose?text=${encodeURIComponent(shareText)}&embeds[]=${encodeURIComponent(shareUrl)}`;
     openExternalUrl(composeUrl);
@@ -471,7 +471,7 @@ const App: React.FC = () => {
     return (
       <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center text-slate-400 gap-4">
         <Loader2 className="w-12 h-12 animate-spin text-indigo-500" />
-        <p className="text-sm font-medium animate-pulse">Loading Turkish Dama...</p>
+        <p className="text-sm font-medium animate-pulse">Loading Checkers...</p>
       </div>
     );
   }
@@ -572,7 +572,7 @@ const App: React.FC = () => {
           <div className="flex items-center gap-2 mb-3">
             <span className="text-[10px] text-slate-400">Theme</span>
             <select value={boardTheme} onChange={(e) => setBoardTheme(e.target.value as any)} className="text-[10px] bg-slate-900 border border-slate-700 rounded px-2 py-1 text-slate-300">
-              <option value="turkish">Turkish</option>
+              <option value="checkers">Checkers</option>
               <option value="classic">Classic</option>
               <option value="neon">Neon</option>
             </select>
@@ -668,7 +668,7 @@ const App: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in">
           <div className="bg-slate-800 rounded-2xl border border-slate-700 max-w-lg w-full max-h-[80vh] overflow-y-auto p-6 relative shadow-2xl">
             <button onClick={() => setShowRules(false)} className="absolute top-4 right-4 text-slate-400 hover:text-white"><X className="w-6 h-6" /></button>
-            <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><BookOpen className="w-5 h-5 text-indigo-400" /> Turkish Dama Rules</h2>
+            <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2"><BookOpen className="w-5 h-5 text-indigo-400" /> Checkers Rules</h2>
             <ul className="list-disc pl-5 space-y-2 text-sm text-slate-300">
               <li>Pieces move <strong>forward</strong> or <strong>sideways</strong> (left/right) one square.</li>
               <li>No backward moves or diagonal moves for ordinary pieces.</li>
@@ -777,15 +777,17 @@ const App: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
           <div className="bg-slate-900 rounded-2xl max-w-sm w-full overflow-hidden">
             <div className="p-6">
-              <div className="w-16 h-16 mx-auto rounded-xl bg-indigo-600 mb-3"></div>
-              <h3 className="text-white text-lg font-bold text-center">Add Mini App: Turkish Dama</h3>
+              <div className="w-16 h-16 mx-auto rounded-xl overflow-hidden mb-3">
+                <img src="/checkers-logo.png" alt="Checkers Logo" className="w-full h-full object-cover" />
+              </div>
+              <h3 className="text-white text-lg font-bold text-center">Add Mini App: Checkers</h3>
               <div className="mt-3 space-y-2">
                 <label className="flex items-center justify-between bg-slate-800 rounded-lg p-3 text-slate-200 text-sm"><span>Add to Farcaster</span><input type="checkbox" checked={addToFarcaster} onChange={(e) => setAddToFarcaster(e.target.checked)} /></label>
                 <label className="flex items-center justify-between bg-slate-800 rounded-lg p-3 text-slate-200 text-sm"><span>Enable notifications</span><input type="checkbox" checked={enableNotifications} onChange={(e) => setEnableNotifications(e.target.checked)} /></label>
               </div>
               <div className="mt-4 flex gap-2">
                 <button onClick={() => { setShowAddMiniApp(false); }} className="flex-1 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-bold">Cancel</button>
-                <button onClick={async () => { const res = await addMiniAppAndEnableNotifications(); if (res.added) { await sendSelfNotification('Welcome', 'Turkish Dama ready', window.location.href); } setShowAddMiniApp(false); }} className="flex-1 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold">Confirm</button>
+                <button onClick={async () => { const res = await addMiniAppAndEnableNotifications(); if (res.added) { await sendSelfNotification('Welcome', 'Checkers ready', window.location.href); } setShowAddMiniApp(false); }} className="flex-1 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold">Confirm</button>
               </div>
             </div>
           </div>

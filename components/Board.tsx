@@ -1,5 +1,5 @@
 import React from 'react';
-import { BoardState, Move, Piece, Player, Position } from '../types';
+import { BoardState, Move, Position } from '../types';
 import { BOARD_SIZE } from '../constants';
 import PieceComponent from './Piece';
 import { ArrowRight } from 'lucide-react';
@@ -11,10 +11,10 @@ interface BoardProps {
   onSquareClick: (pos: Position) => void;
   isRotated: boolean;
   hintMove?: Move | null;
-  theme?: 'classic' | 'neon' | 'turkish';
+  theme?: 'classic' | 'neon' | 'checkers';
 }
 
-const Board: React.FC<BoardProps> = ({ board, selectedPos, validMoves, onSquareClick, isRotated, hintMove = null, theme = 'turkish' }) => {
+const Board: React.FC<BoardProps> = ({ board, selectedPos, validMoves, onSquareClick, isRotated, hintMove = null, theme = 'checkers' }) => {
   
   const renderSquare = (row: number, col: number) => {
     const piece = board[row][col];
@@ -27,7 +27,7 @@ const Board: React.FC<BoardProps> = ({ board, selectedPos, validMoves, onSquareC
     const isCaptureMove = validMove?.isCapture;
     const isHintTarget = hintMove && hintMove.to.row === row && hintMove.to.col === col;
 
-    // Turkish Dama usually has a uniform board color or simple grid
+    // Checkers usually has a uniform board color or simple grid
     // We use alternating subtle shades for visual guidance but all squares are playable
     const isDark = (row + col) % 2 === 1;
     let bgClass = (() => {

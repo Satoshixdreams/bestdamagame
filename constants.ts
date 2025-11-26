@@ -3,7 +3,7 @@ import { Player } from './types';
 export const BOARD_SIZE = 8;
 
 export const INITIAL_BOARD_SETUP = {
-  // Turkish Dama Setup:
+  // Checkers Setup:
   // White: Rows 1, 2
   // Blue (formerly Red): Rows 5, 6
   whiteRows: [1, 2],

@@ -4,10 +4,10 @@ import { BOARD_SIZE } from '../constants';
 
 export const createInitialBoard = (): BoardState => {
   const board: BoardState = Array(BOARD_SIZE).fill(null).map(() => Array(BOARD_SIZE).fill(null));
-  
+
   for (let row = 0; row < BOARD_SIZE; row++) {
     for (let col = 0; col < BOARD_SIZE; col++) {
-      // Turkish Dama: Fill entire rows 1, 2 for White and 5, 6 for Blue (Red in Logic)
+      // Checkers: Fill entire rows 1, 2 for White and 5, 6 for Blue (Red in Logic)
       if (row === 1 || row === 2) {
         board[row][col] = { player: Player.WHITE, isKing: false };
       } else if (row === 5 || row === 6) {
@@ -24,7 +24,7 @@ export const isValidPos = (pos: Position): boolean => {
 
 export const getValidMoves = (board: BoardState, player: Player, fromPos?: Position | null): Move[] => {
   let moves: Move[] = [];
-  
+
   if (fromPos) {
     // If we are forced to move a specific piece (e.g., mid-multijump)
     const piece = board[fromPos.row][fromPos.col];
@@ -44,7 +44,7 @@ export const getValidMoves = (board: BoardState, player: Player, fromPos?: Posit
     }
   }
 
-  // Turkish Dama Rule: Forced Captures
+  // Checkers Rule: Forced Captures
   // If ANY capture is available on the board, you MUST take a capture move.
   const captureMoves = moves.filter(m => m.isCapture);
   if (captureMoves.length > 0) {
@@ -56,7 +56,7 @@ export const getValidMoves = (board: BoardState, player: Player, fromPos?: Posit
 
 export const getPieceMoves = (board: BoardState, pos: Position, piece: Piece): Move[] => {
   const moves: Move[] = [];
-  
+
   // Orthogonal Directions: Up, Down, Left, Right
   const dirs = {
     UP: { r: -1, c: 0 },
@@ -86,7 +86,7 @@ export const getPieceMoves = (board: BoardState, pos: Position, piece: Piece): M
       while (true) {
         const target = { row: pos.row + d.r * i, col: pos.col + d.c * i };
         if (!isValidPos(target)) break;
-        
+
         const cell = board[target.row][target.col];
         if (cell === null) {
           moves.push({ from: pos, to: target, isCapture: false });
@@ -103,7 +103,7 @@ export const getPieceMoves = (board: BoardState, pos: Position, piece: Piece): M
         if (!isValidPos(checkPos)) break;
 
         const cell = board[checkPos.row][checkPos.col];
-        
+
         if (cell !== null) {
           if (cell.player !== piece.player) {
             // Found enemy, check landing spots behind it
@@ -111,7 +111,7 @@ export const getPieceMoves = (board: BoardState, pos: Position, piece: Piece): M
             while (true) {
               const landPos = { row: checkPos.row + d.r * jumpDist, col: checkPos.col + d.c * jumpDist };
               if (!isValidPos(landPos)) break;
-              
+
               const landCell = board[landPos.row][landPos.col];
               if (landCell === null) {
                 moves.push({
@@ -167,7 +167,7 @@ export const getPieceMoves = (board: BoardState, pos: Position, piece: Piece): M
 export const applyMove = (currentBoard: BoardState, move: Move): { newBoard: BoardState, promoted: boolean } => {
   // Deep copy
   const newBoard = currentBoard.map(row => row.map(p => p ? { ...p } : null));
-  
+
   const piece = newBoard[move.from.row][move.from.col];
   if (!piece) throw new Error("No piece at source");
 
@@ -183,9 +183,9 @@ export const applyMove = (currentBoard: BoardState, move: Move): { newBoard: Boa
   // Promotion
   let promoted = false;
   if (!piece.isKing) {
-    // In Turkish Dama, promotion stops movement immediately usually, but checking end rows:
+    // In Checkers, promotion stops movement immediately usually, but checking end rows:
     if ((piece.player === Player.WHITE && move.to.row === BOARD_SIZE - 1) ||
-        (piece.player === Player.RED && move.to.row === 0)) {
+      (piece.player === Player.RED && move.to.row === 0)) {
       piece.isKing = true;
       promoted = true;
     }
@@ -197,7 +197,7 @@ export const applyMove = (currentBoard: BoardState, move: Move): { newBoard: Boa
 export const checkWinner = (board: BoardState): Player | null => {
   let redCount = 0;
   let whiteCount = 0;
-  
+
   // Simple count is often enough for Game Over
   for (let r = 0; r < BOARD_SIZE; r++) {
     for (let c = 0; c < BOARD_SIZE; c++) {
@@ -210,24 +210,24 @@ export const checkWinner = (board: BoardState): Player | null => {
   // Also check for no moves
   if (redCount === 0) return Player.WHITE;
   if (whiteCount === 0) return Player.RED;
-  
+
   // To be 100% accurate we should check if current player has valid moves
   // but this is expensive to run every render, so we rely on turn logic mostly.
-  
+
   return null;
 };
 
 export const boardToString = (board: BoardState): string => {
-    let str = "";
-    for (let r = 0; r < BOARD_SIZE; r++) {
-        let rowStr = `Row ${r}: `;
-        for (let c = 0; c < BOARD_SIZE; c++) {
-            const p = board[r][c];
-            if (!p) rowStr += "[ ]";
-            // Use 'B' for Blue (formerly Red)
-            else rowStr += p.player === Player.RED ? `[B${p.isKing?'K':''}]` : `[W${p.isKing?'K':''}]`;
-        }
-        str += rowStr + "\n";
+  let str = "";
+  for (let r = 0; r < BOARD_SIZE; r++) {
+    let rowStr = `Row ${r}: `;
+    for (let c = 0; c < BOARD_SIZE; c++) {
+      const p = board[r][c];
+      if (!p) rowStr += "[ ]";
+      // Use 'B' for Blue (formerly Red)
+      else rowStr += p.player === Player.RED ? `[B${p.isKing ? 'K' : ''}]` : `[W${p.isKing ? 'K' : ''}]`;
     }
-    return str;
+    str += rowStr + "\n";
+  }
+  return str;
 }
