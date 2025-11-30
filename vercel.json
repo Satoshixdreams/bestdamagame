@@ -1,4 +1,10 @@
 {
+  "rewrites": [
+    {
+      "source": "/((?!.well-known/|assets/).*)",
+      "destination": "/index.html"
+    }
+  ],
   "redirects": [
     {
       "source": "/.well-known/farcaster.json",
