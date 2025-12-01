@@ -1,11 +1,15 @@
 {
+  "accountAssociation": {
+    "header": "",
+    "payload": "",
+    "signature": ""
+  },
   "miniapp": {
     "version": "1",
     "name": "Checkers",
     "iconUrl": "https://damagames.vercel.app/checkers-logo.png",
     "homeUrl": "https://damagames.vercel.app",
     "imageUrl": "https://damagames.vercel.app/checkers-logo.png",
-    "buttonTitle": "Play Checkers",
     "splashImageUrl": "https://damagames.vercel.app/checkers-logo.png",
     "splashBackgroundColor": "#0f172a",
     "webhookUrl": "https://damagames.vercel.app/api/webhook",
