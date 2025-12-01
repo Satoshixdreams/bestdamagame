@@ -133,12 +133,10 @@ const App: React.FC = () => {
     };
   }, []);
 
-  // Notify Farcaster that the app is ready once initialization is done
+  // Notify Farcaster that the app is ready immediately
   useEffect(() => {
-    if (!isInitializing) {
-      notifyFarcasterAppReady();
-    }
-  }, [isInitializing]);
+    notifyFarcasterAppReady();
+  }, []);
 
   // Initialize Online Listener
   useEffect(() => {
