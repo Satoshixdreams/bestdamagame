@@ -1,15 +1,15 @@
 {
-  "rewrites": [
-    {
-      "source": "/((?!.well-known/|assets/).*)",
-      "destination": "/index.html"
-    }
-  ],
   "redirects": [
     {
       "source": "/.well-known/farcaster.json",
       "destination": "https://api.farcaster.xyz/miniapps/hosted-manifest/019ad6a6-3be8-ed67-96f5-71498a96b624",
       "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/((?!.well-known/|assets/).*)",
+      "destination": "/index.html"
     }
   ]
 }
