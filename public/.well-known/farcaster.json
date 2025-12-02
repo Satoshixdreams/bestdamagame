@@ -1,15 +1,11 @@
 {
-  "accountAssociation": {
-    "header": "",
-    "payload": "",
-    "signature": ""
-  },
-  "miniapp": {
+  "frame": {
     "name": "Checkers",
     "version": "1",
     "iconUrl": "https://bestdamagame.vercel.app/checkers-logo.png",
     "homeUrl": "https://bestdamagame.vercel.app",
     "imageUrl": "https://bestdamagame.vercel.app/checkers-logo.png",
+    "buttonTitle": "Checkers — Play with friends",
     "splashImageUrl": "https://bestdamagame.vercel.app/checkers-logo.png",
     "splashBackgroundColor": "#0f172a",
     "webhookUrl": "https://bestdamagame.vercel.app/api/webhook",
@@ -20,8 +16,8 @@
     ],
     "primaryCategory": "games",
     "tags": [
-      "games",
       "checkers",
+      "games",
       "board",
       "social",
       "play"
@@ -33,7 +29,9 @@
     "ogImageUrl": "https://bestdamagame.vercel.app/checkers-logo.png",
     "castShareUrl": "https://bestdamagame.vercel.app/?castShare=1"
   },
-  "baseBuilder": {
-    "ownerAddress": "0x2fc3bE228078Cbef235B9eb44d1eEB4943209f95"
+  "accountAssociation": {
+    "header": "eyJmaWQiOjUyMDUxNCwidHlwZSI6ImF1dGgiLCJrZXkiOiIweGY1MzIxYmJhNTE1MThGMDNkZEM0MDU2Q0JjOTMxRDg5NTZjNDgyYUMifQ",
+    "payload": "eyJkb21haW4iOiJiZXN0ZGFtYWdhbWUudmVyY2VsLmFwcCJ9",
+    "signature": "qBOp83I+AyVuZdr1esYjO9hKbNkpWw1vivd37ITuODF7RyMHMQJCZaPNjFMVRdbEygfQr6lQBuGAC0aRrAP9+hs="
   }
 }
