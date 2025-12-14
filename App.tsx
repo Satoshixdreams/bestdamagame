@@ -73,6 +73,11 @@ const App: React.FC = () => {
   const { connect, connectors } = useConnect();
   // const { disconnect } = useDisconnect();
 
+  // Debug: Log available connectors
+  useEffect(() => {
+    console.log('Available connectors:', connectors.map(c => ({ id: c.id, name: c.name })));
+  }, [connectors]);
+
   // Initialize Farcaster SDK and Wallet
   useEffect(() => {
     const initApp = async () => {
