@@ -10,7 +10,7 @@
 
 // This is a placeholder for the actual builder code logic
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getBuilderCodeSuffix = (builderCode: string): string => {
+export const getBuilderCodeSuffix = (_builderCode: string): string => {
     // Spec (Hypothetical based on standard EVM data appending):
     // Data suffix is usually appended to the calldata.
     // We would need the exact encoding spec.
