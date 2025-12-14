@@ -5,7 +5,10 @@ import { coinbaseWallet, injected } from 'wagmi/connectors'
 export const config = createConfig({
     chains: [base],
     connectors: [
-        coinbaseWallet({ appName: 'Best Dama Game' }),
+        coinbaseWallet({
+            appName: 'Best Dama Game',
+            preference: 'smartWalletOnly'
+        }),
         injected(),
     ],
     transports: {
