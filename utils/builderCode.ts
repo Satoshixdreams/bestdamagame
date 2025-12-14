@@ -7,9 +7,9 @@
  * hook that can be easily swapped or upgraded.
  */
 
-import { encodeHex } from 'viem';
 
 // This is a placeholder for the actual builder code logic
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getBuilderCodeSuffix = (builderCode: string): string => {
     // Spec (Hypothetical based on standard EVM data appending):
     // Data suffix is usually appended to the calldata.
