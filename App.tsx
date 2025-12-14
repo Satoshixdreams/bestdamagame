@@ -6,7 +6,7 @@ import Board from './components/Board';
 import { getGeminiAdvice } from './services/geminiService';
 import { loadProfile, saveProfile, calculateNewStats, getLeaderboard } from './services/storageService';
 import { getBestMove } from './utils/aiLogic';
-import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { useAccount, useConnect } from 'wagmi';
 // connectWallet etc will be replaced by Wagmi, keeping ensureBaseNetwork just in case for now or removing if unused
 // import { ensureBaseNetwork } from './services/web3Service';
 import { peerService, PeerMessage } from './services/peerService';
