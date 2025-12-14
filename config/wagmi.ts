@@ -2,7 +2,7 @@ import { http, createConfig } from 'wagmi'
 import { base } from 'wagmi/chains'
 import { injected, walletConnect } from 'wagmi/connectors'
 
-const projectId = 'YOUR_PROJECT_ID' // Free WalletConnect Cloud project ID
+const projectId = 'f8cb0e744ab87f4abdfc914b5ea7cfcb'
 
 export const config = createConfig({
     chains: [base],
