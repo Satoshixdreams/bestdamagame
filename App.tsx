@@ -395,7 +395,12 @@ const App: React.FC = () => {
     if (farcasterUser) return;
     const connector = connectors.find(c => c.id === 'coinbaseWalletSDK') || connectors[0];
     if (connector) {
-      connect({ connector });
+      connect({ connector }, {
+        onError: (err) => {
+          console.error("Wagmi Connect Error:", err);
+          alert(`Connection failed: ${err.message}`);
+        }
+      });
       // ensureBaseNetwork handled by Wagmi chain configuration ideally
     } else {
       alert("No suitable connector found");
@@ -405,13 +410,23 @@ const App: React.FC = () => {
   const handleConnectMetaMask = () => {
     if (farcasterUser) return;
     const connector = connectors.find(c => c.id === 'injected'); // MetaMask is usually injected
-    if (connector) connect({ connector });
+    if (connector) connect({ connector }, {
+      onError: (err) => {
+        console.error("MetaMask Connect Error:", err);
+        alert(`MetaMask connection failed: ${err.message}`);
+      }
+    });
   };
 
   const handleConnectCoinbase = () => {
     if (farcasterUser) return;
     const connector = connectors.find(c => c.id === 'coinbaseWalletSDK');
-    if (connector) connect({ connector });
+    if (connector) connect({ connector }, {
+      onError: (err) => {
+        console.error("Coinbase Connect Error:", err);
+        alert(`Coinbase Wallet connection failed: ${err.message}`);
+      }
+    });
   };
 
   const startHost = () => {
