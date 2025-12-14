@@ -73,10 +73,6 @@ const App: React.FC = () => {
   const { connect, connectors } = useConnect();
   // const { disconnect } = useDisconnect();
 
-  // Debug: Log available connectors
-  useEffect(() => {
-    console.log('Available connectors:', connectors.map(c => ({ id: c.id, name: c.name })));
-  }, [connectors]);
 
   // Initialize Farcaster SDK and Wallet
   useEffect(() => {
@@ -398,7 +394,7 @@ const App: React.FC = () => {
 
   const handleConnectWallet = () => {
     if (farcasterUser) return;
-    const connector = connectors.find(c => c.id === 'coinbaseWalletSDK') || connectors[0];
+    const connector = connectors.find(c => c.id === 'walletConnect') || connectors[0];
     if (connector) {
       // Defer to next tick to prevent blocking UI during click event
       setTimeout(() => {
@@ -431,13 +427,13 @@ const App: React.FC = () => {
 
   const handleConnectCoinbase = () => {
     if (farcasterUser) return;
-    const connector = connectors.find(c => c.id === 'coinbaseWalletSDK');
+    const connector = connectors.find(c => c.id === 'walletConnect');
     if (connector) {
       setTimeout(() => {
         connect({ connector }, {
           onError: (err) => {
-            console.error("Coinbase Connect Error:", err);
-            alert(`Coinbase Wallet connection failed: ${err.message}`);
+            console.error("WalletConnect Error:", err);
+            alert(`Wallet connection failed: ${err.message}`);
           }
         });
       }, 0);
