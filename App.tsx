@@ -6,7 +6,9 @@ import Board from './components/Board';
 import { getGeminiAdvice } from './services/geminiService';
 import { loadProfile, saveProfile, calculateNewStats, getLeaderboard } from './services/storageService';
 import { getBestMove } from './utils/aiLogic';
-import { connectWallet, checkIfWalletIsConnected, listenToAccountChanges, ensureBaseNetwork } from './services/web3Service';
+import { useAccount, useConnect, useDisconnect } from 'wagmi';
+// connectWallet etc will be replaced by Wagmi, keeping ensureBaseNetwork just in case for now or removing if unused
+// import { ensureBaseNetwork } from './services/web3Service';
 import { peerService, PeerMessage } from './services/peerService';
 import { notifyFarcasterAppReady, getFarcasterContext, FarcasterUser, openExternalUrl, addMiniAppAndEnableNotifications, sendSelfNotification } from './services/farcasterService';
 import { SpeedInsights } from '@vercel/speed-insights/react';
@@ -66,12 +68,16 @@ const App: React.FC = () => {
   const HUMAN_PLAYER = Player.RED;
   const AI_PLAYER = Player.WHITE;
 
+  // Wagmi Hooks
+  const { address, isConnected: isWalletConnected } = useAccount();
+  const { connect, connectors } = useConnect();
+  // const { disconnect } = useDisconnect();
+
   // Initialize Farcaster SDK and Wallet
   useEffect(() => {
     const initApp = async () => {
       try {
         // 1. Try Farcaster
-        // await initFarcaster(); // Moved to after initialization
         const fcUser = await getFarcasterContext();
 
         if (fcUser) {
@@ -97,13 +103,7 @@ const App: React.FC = () => {
           return;
         }
 
-        // 2. Try Wallet (fallback)
-        const address = await checkIfWalletIsConnected();
-        if (address) {
-          setIdentityId(address);
-          setUserProfile(loadProfile(address));
-        }
-
+        // 2. Wagmi Wallet Sync (handled by separate useEffect below)
         // Check deep link for non-FC users too
         const params = new URLSearchParams(window.location.search);
         const joinCode = params.get('join');
@@ -120,18 +120,26 @@ const App: React.FC = () => {
 
     initApp();
 
-    listenToAccountChanges((account) => {
-      if (!farcasterUser) {
-        setIdentityId(account);
-        setUserProfile(loadProfile(account));
-        handleReset();
-      }
-    });
-
+    // Cleanup handled by Wagmi
     return () => {
       peerService.destroy();
     };
   }, []);
+
+  // Sync Wagmi state with App state
+  useEffect(() => {
+    if (isWalletConnected && address && !farcasterUser) {
+      setIdentityId(address);
+      setUserProfile(loadProfile(address));
+      // Reset logic if new wallet connects handled by user interaction primarily, 
+      // but if we want auto-reset on account change:
+      // handleReset(); // Careful with infinite loops or unwanted resets
+    } else if (!isWalletConnected && !farcasterUser && identityId && identityId.startsWith('0x')) {
+      // Disconnected
+      setIdentityId(null);
+      setUserProfile(loadProfile(null)); // Guest
+    }
+  }, [address, isWalletConnected, farcasterUser]);
 
   // Notify Farcaster that the app is ready immediately
   useEffect(() => {
@@ -383,52 +391,27 @@ const App: React.FC = () => {
     else if (t === 'prompt') playTone(880, 200, { vol: 0.045, type: 'sine', attack: 0.02, lp: 1600 });
   };
 
-  const handleConnectWallet = async () => {
+  const handleConnectWallet = () => {
     if (farcasterUser) return;
-    try {
-      const address = await connectWallet();
-      if (address) {
-        setIdentityId(address);
-        setUserProfile(loadProfile(address));
-        await ensureBaseNetwork();
-        handleReset();
-      }
-    } catch (err: any) {
-      console.error("Connection failed", err);
-      alert(err.message || "Failed to connect wallet.");
+    const connector = connectors.find(c => c.id === 'coinbaseWalletSDK') || connectors[0];
+    if (connector) {
+      connect({ connector });
+      // ensureBaseNetwork handled by Wagmi chain configuration ideally
+    } else {
+      alert("No suitable connector found");
     }
   };
 
-  const handleConnectMetaMask = async () => {
+  const handleConnectMetaMask = () => {
     if (farcasterUser) return;
-    try {
-      const address = await (await import('./services/web3Service')).connectWithMetaMask();
-      if (address) {
-        setIdentityId(address);
-        setUserProfile(loadProfile(address));
-        await ensureBaseNetwork();
-        handleReset();
-      }
-    } catch (err: any) {
-      console.error("Connection failed", err);
-      alert(err.message || "Failed to connect MetaMask.");
-    }
+    const connector = connectors.find(c => c.id === 'injected'); // MetaMask is usually injected
+    if (connector) connect({ connector });
   };
 
-  const handleConnectCoinbase = async () => {
+  const handleConnectCoinbase = () => {
     if (farcasterUser) return;
-    try {
-      const address = await (await import('./services/web3Service')).connectWithCoinbase();
-      if (address) {
-        setIdentityId(address);
-        setUserProfile(loadProfile(address));
-        await ensureBaseNetwork();
-        handleReset();
-      }
-    } catch (err: any) {
-      console.error("Connection failed", err);
-      alert(err.message || "Failed to connect Coinbase Wallet.");
-    }
+    const connector = connectors.find(c => c.id === 'coinbaseWalletSDK');
+    if (connector) connect({ connector });
   };
 
   const startHost = () => {
