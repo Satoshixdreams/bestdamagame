@@ -797,15 +797,15 @@ const App: React.FC = () => {
         <div className="bg-slate-800/90 backdrop-blur border border-slate-700 rounded-full px-3 py-2 shadow-xl flex gap-2">
           <button onClick={() => setShowLeaderboard(true)} className="px-3 py-2 rounded-full text-amber-300 hover:text-amber-200 hover:bg-slate-700/50 flex items-center gap-2">
             <BarChart3 className="w-5 h-5" />
-            <span className="text-xs font-bold hidden sm:inline">Leaderboard</span>
+            <span className="text-xs font-bold">Leaderboard</span>
           </button>
           <button onClick={() => setShowRules(true)} className="px-3 py-2 rounded-full text-slate-200 hover:text-white hover:bg-slate-700/50 flex items-center gap-2">
             <BookOpen className="w-5 h-5" />
-            <span className="text-xs font-bold hidden sm:inline">Checkers Rules</span>
+            <span className="text-xs font-bold">Rules</span>
           </button>
           <button onClick={() => setShowAddMiniApp(true)} className="px-3 py-2 rounded-full text-violet-300 hover:text-violet-200 hover:bg-slate-700/50 flex items-center gap-2">
             <Plus className="w-5 h-5" />
-            <span className="text-xs font-bold hidden sm:inline">Add Mini App</span>
+            <span className="text-xs font-bold">Add App v3</span>
           </button>
         </div>
       </div>
