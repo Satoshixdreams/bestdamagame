@@ -4,37 +4,15 @@
     "payload": "eyJkb21haW4iOiJiZXN0ZGFtYWdhbWUudmVyY2VsLmFwcCJ9",
     "signature": "qBOp83I+AyVuZdr1esYjO9hKbNkpWw1vivd37ITuODF7RyMHMQJCZaPNjFMVRdbEygfQr6lQBuGAC0aRrAP9+hs="
   },
-  "miniapp": {
-    "name": "Checkers",
+  "frame": {
     "version": "1",
-    "iconUrl": "https://bestdamagame.vercel.app/checkers-logo.png",
-    "homeUrl": "https://bestdamagame.vercel.app",
-    "imageUrl": "https://bestdamagame.vercel.app/checkers-logo.png",
+    "name": "Checkers",
+    "iconUrl": "https://bestdamagame.vercel.app/checkers-logo.png?v=3",
+    "homeUrl": "https://bestdamagame.vercel.app/?v=3",
+    "imageUrl": "https://bestdamagame.vercel.app/checkers-logo.png?v=3",
     "buttonTitle": "Checkers — Play with friends",
-    "splashImageUrl": "https://bestdamagame.vercel.app/checkers-logo.png",
+    "splashImageUrl": "https://bestdamagame.vercel.app/checkers-logo.png?v=3",
     "splashBackgroundColor": "#0f172a",
-    "webhookUrl": "https://bestdamagame.vercel.app/api/webhook",
-    "subtitle": "Play Checkers on Farcaster",
-    "description": "Fast, social Checkers. Play vs AI or friends, share invites, and climb the leaderboard.",
-    "screenshotUrls": [
-      "https://bestdamagame.vercel.app/checkers-logo.png"
-    ],
-    "primaryCategory": "games",
-    "tags": [
-      "checkers",
-      "games",
-      "board",
-      "social",
-      "play"
-    ],
-    "heroImageUrl": "https://bestdamagame.vercel.app/checkers-logo.png",
-    "tagline": "Invite. Play. Win.",
-    "ogTitle": "Checkers — Play with friends",
-    "ogDescription": "Jump into a quick match, invite friends, or practice with AI hints.",
-    "ogImageUrl": "https://bestdamagame.vercel.app/checkers-logo.png",
-    "castShareUrl": "https://bestdamagame.vercel.app/?castShare=1"
-  },
-  "baseBuilder": {
-    "ownerAddress": "0x2fc3bE228078Cbef235B9eb44d1eEB4943209f95"
+    "webhookUrl": "https://bestdamagame.vercel.app/api/webhook"
   }
 }
