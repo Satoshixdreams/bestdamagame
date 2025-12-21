@@ -602,7 +602,7 @@ const App: React.FC = () => {
               <h2 className="font-bold text-white text-base truncate pl-2">
                 {userProfile.username ? `@${userProfile.username}` : userProfile.rankTitle}
               </h2>
-              <span className="text-xs text-slate-400 font-mono shrink-0">LVL {userProfile.level}</span>
+              <span className="text-xs text-slate-400 font-mono shrink-0">LVL {userProfile.level} v3.0</span>
             </div>
 
             <div className="w-full h-1.5 bg-slate-700 rounded-full overflow-hidden mb-1.5">
@@ -626,7 +626,7 @@ const App: React.FC = () => {
           {/* Mode Switcher */}
           <div className="flex bg-slate-900 p-1 rounded-lg mb-4 border border-slate-700 gap-1">
             <button onClick={() => toggleGameMode(GameMode.PVAI)} className={`flex-1 py-1.5 text-[10px] font-bold rounded flex justify-center items-center gap-1 ${gameMode === GameMode.PVAI ? 'bg-indigo-600 text-white' : 'text-slate-500'}`}><Cpu className="w-3 h-3" /> Play AI</button>
-            <button onClick={() => toggleGameMode(GameMode.ONLINE)} className={`flex-1 py-1.5 text-[10px] font-bold rounded flex justify-center items-center gap-1 ${gameMode === GameMode.ONLINE ? 'bg-emerald-600 text-white' : 'text-slate-500'}`}><Globe className="w-3 h-3" /> Play Friend</button>
+            <button onClick={() => toggleGameMode(GameMode.ONLINE)} className={`flex-1 py-1.5 text-[10px] font-bold rounded flex justify-center items-center gap-1 ${gameMode === GameMode.ONLINE ? 'bg-emerald-600 text-white' : 'text-slate-500'}`}><Globe className="w-3 h-3" /> Play P2P</button>
           </div>
           <div className="flex items-center gap-2 mb-3">
             <span className="text-[10px] text-slate-400">Theme</span>
