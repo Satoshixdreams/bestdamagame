@@ -13,7 +13,7 @@
     "node": ">=20"
   },
   "dependencies": {
-    "@farcaster/frame-sdk": "^0.1.12",
+    "@farcaster/miniapp-sdk": "^0.2.1",
     "@google/genai": "^1.30.0",
     "@reown/appkit": "^1.8.15",
     "@reown/appkit-adapter-wagmi": "^1.8.15",
