@@ -4,7 +4,7 @@
     "payload": "eyJkb21haW4iOiJiZXN0ZGFtYWdhbWUudmVyY2VsLmFwcCJ9",
     "signature": "qBOp83I+AyVuZdr1esYjO9hKbNkpWw1vivd37ITuODF7RyMHMQJCZaPNjFMVRdbEygfQr6lQBuGAC0aRrAP9+hs="
   },
-  "frame": {
+  "miniapp": {
     "version": "1",
     "name": "Checkers",
     "iconUrl": "https://bestdamagame.vercel.app/checkers-logo.png?v=3",
