@@ -22,6 +22,7 @@ export interface FarcasterUser {
   username?: string;
   displayName?: string;
   pfpUrl?: string;
+  clientAdded?: boolean;
 }
 
 export const getFarcasterContext = async (): Promise<FarcasterUser | null> => {
@@ -34,14 +35,16 @@ export const getFarcasterContext = async (): Promise<FarcasterUser | null> => {
       fid: parseInt(mockFid),
       username: `user${mockFid}`,
       displayName: `User ${mockFid}`,
-      pfpUrl: `https://avatar.vercel.sh/${mockFid}`
+      pfpUrl: `https://avatar.vercel.sh/${mockFid}`,
+      clientAdded: false
     };
   }
 
   try {
     // 2. Race the SDK context promise against a timeout to prevent hanging
     const contextPromise = sdk.context;
-    const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve(null), 1000));
+    // Increased timeout to 3000ms to prevent false negatives on slower connections
+    const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve(null), 3000));
 
     const context = await Promise.race([contextPromise, timeoutPromise]) as any;
 
@@ -50,7 +53,8 @@ export const getFarcasterContext = async (): Promise<FarcasterUser | null> => {
         fid: context.user.fid,
         username: context.user.username,
         displayName: context.user.displayName,
-        pfpUrl: context.user.pfpUrl
+        pfpUrl: context.user.pfpUrl,
+        clientAdded: context.client?.added
       };
     }
     return null;

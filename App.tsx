@@ -62,6 +62,7 @@ const App: React.FC = () => {
   const [showAddMiniApp, setShowAddMiniApp] = useState(false);
   const [addToFarcaster, setAddToFarcaster] = useState(true);
   const [enableNotifications, setEnableNotifications] = useState(true);
+  const [isAppAdded, setIsAppAdded] = useState(false);
 
   // Constants
   const HUMAN_PLAYER = Player.RED;
@@ -85,6 +86,7 @@ const App: React.FC = () => {
           const fcId = `fc-${fcUser.fid}`;
           setFarcasterUser(fcUser);
           setIdentityId(fcId);
+          setIsAppAdded(!!fcUser.clientAdded);
 
           let profile = loadProfile(fcId);
           if (fcUser.username || fcUser.pfpUrl) {
@@ -802,10 +804,12 @@ const App: React.FC = () => {
             <BookOpen className="w-5 h-5" />
             <span className="text-xs font-bold">Rules</span>
           </button>
-          <button onClick={() => setShowAddMiniApp(true)} className="px-3 py-2 rounded-full text-violet-300 hover:text-violet-200 hover:bg-slate-700/50 flex items-center gap-2">
-            <Plus className="w-5 h-5" />
-            <span className="text-xs font-bold">Add App v3</span>
-          </button>
+          {!isAppAdded && (
+            <button onClick={() => setShowAddMiniApp(true)} className="px-3 py-2 rounded-full text-violet-300 hover:text-violet-200 hover:bg-slate-700/50 flex items-center gap-2">
+              <Plus className="w-5 h-5" />
+              <span className="text-xs font-bold">Add App</span>
+            </button>
+          )}
         </div>
       </div>
 
