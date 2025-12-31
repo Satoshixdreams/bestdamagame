@@ -480,7 +480,7 @@ const App: React.FC = () => {
   const shareInvite = async () => {
     if (!myPeerId) return;
 
-    const url = new URL(window.location.href);
+    const url = new URL(window.location.origin + window.location.pathname);
     url.searchParams.set('join', myPeerId);
     const shareUrl = url.toString();
     const shareText = "Play Checkers with me! 🔴 vs ⚪️";
@@ -515,7 +515,7 @@ const App: React.FC = () => {
     const uname = inviteUsername.replace(/^@/, '').trim();
     if (!uname) { setInviteBtnLabel('Enter @username'); setTimeout(() => setInviteBtnLabel('Invite Friend'), 1500); return; }
 
-    const url = new URL(window.location.href);
+    const url = new URL(window.location.origin + window.location.pathname);
     url.searchParams.set('join', myPeerId);
     const shareUrl = url.toString();
     const shareText = `@${uname} Play Checkers vs me — tap to join!`;
