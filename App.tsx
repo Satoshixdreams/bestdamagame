@@ -10,7 +10,7 @@ import { useAccount, useConnect } from 'wagmi';
 
 import { peerService, PeerMessage } from './services/peerService';
 import { notifyFarcasterAppReady, getFarcasterContext, FarcasterUser, openExternalUrl, addMiniAppAndEnableNotifications, sendSelfNotification } from './services/farcasterService';
-import { SpeedInsights } from '@vercel/speed-insights/react';
+
 import { RotateCcw, Trophy, BrainCircuit, Cpu, User, BookOpen, X, Wallet, Repeat, Globe, ArrowRight, Loader2, BarChart3, Share2, Link, CheckCheck, Bell, Smartphone, Plus, UserPlus } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -882,7 +882,7 @@ const App: React.FC = () => {
       )}
 
       {/* Speed Insights */}
-      <SpeedInsights />
+
     </div>
   );
 };

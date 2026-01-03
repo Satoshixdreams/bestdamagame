@@ -18,7 +18,6 @@
     "@reown/appkit": "^1.8.15",
     "@reown/appkit-adapter-wagmi": "^1.8.15",
     "@tanstack/react-query": "^5.90.12",
-    "@vercel/speed-insights": "^1.2.0",
     "lucide-react": "^0.344.0",
     "peerjs": "^1.5.2",
     "react": "^18.3.1",
