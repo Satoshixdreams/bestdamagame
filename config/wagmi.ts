@@ -12,8 +12,8 @@ export const config = createConfig({
             metadata: {
                 name: 'Best Dama Game',
                 description: 'Turkish Checkers on Base',
-                url: 'https://bestdamagame.vercel.app',
-                icons: ['https://bestdamagame.vercel.app/icon.png']
+                url: 'https://checkersgame.workers.dev',
+                icons: ['https://checkersgame.workers.dev/icon.png']
             },
             showQrModal: true
         }),
